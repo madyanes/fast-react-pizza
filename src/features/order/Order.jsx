@@ -9,6 +9,7 @@ import {
   formatDate,
 } from '../../utils/helpers'
 import OrderItem from './OrderItem'
+import UpdateOrder from './UpdateOrder'
 
 function Order() {
   const order = useLoaderData()
@@ -27,7 +28,6 @@ function Order() {
   const deliveryIn = calcMinutesLeft(estimatedDelivery)
 
   useEffect(() => {
-    console.log('The effect is executed.')
     if (!fetcher.data && fetcher.state === 'idle') fetcher.load('/menu')
   }, [fetcher])
 
@@ -85,6 +85,8 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+
+      {!priority && <UpdateOrder order={order} />}
     </div>
   )
 }
